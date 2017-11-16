@@ -3,7 +3,14 @@ include 'koneksi.php';
 $sql = "SELECT id_barang, nama_barang, jumlah_barang, tgl_masuk, id_jenis, keadaan_barang FROM barang";
 $data = mysqli_query($koneksi,$sql);
 
-//var_dump($data);
+//menampilkam jenis di index
+function tampilJenis($idJenis, $koneksi){
+	$sql = "SELECT nama_jenis FROM jenis_barang WHERE id_jenis=$idJenis";
+	$data =  mysqli_query($koneksi, $sql);
+	$jenis = mysqli_fetch_assoc($data);
+	return $jenis['nama_jenis'];
+}
+//var_dump($jenis);
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +45,7 @@ $data = mysqli_query($koneksi,$sql);
 				<?php echo $barang['tgl_masuk'];?>
 			</td>
 			<td>
-				<?php echo $barang['id_jenis'];?>
+				<?php echo tampilJenis($barang['id_jenis'],$koneksi);?>
 			</td>
 			<td>
 				<?php echo $barang['keadaan_barang'];?>
